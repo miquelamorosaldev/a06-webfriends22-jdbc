@@ -1,0 +1,8 @@
+<form action="categoryController" method="POST">
+    <div class="form-group">
+        <label for="inputCat">Category Name:</label>
+        <input type="text" class="form-control" id="inputCat" name="catName" placeholder="Category Name">
+    </div>
+    <input type="hidden" value="${categorymodify.id}" name="categoryID"/>
+    <button type="submit" class="btn btn-primary" value="Add Category" name="actionCategory">Add Category</button>
+</form>
