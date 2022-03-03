@@ -9,5 +9,9 @@ and open the template in the editor.
 */
 
 .form-filter {
-  padding-bottom: 20px;
+  padding-bottom: 0.8rem;
+}
+
+.buttonSubmit {
+  margin-top: 0.8rem;
 }
