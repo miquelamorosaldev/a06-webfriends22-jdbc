@@ -101,7 +101,7 @@ public class PatientDAO {
               Statement st = conn.createStatement(); )
         {
             ResultSet res = st.executeQuery(getQuery("FIND_ALL"));
-            // DONE, 06/04/2022.
+            // DONE, 06/03/2022.
             while (res.next()) {
                 Patient patient = new Patient();
                 // Check the parameters match with friends.jsp form.
