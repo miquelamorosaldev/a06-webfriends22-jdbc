@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 import model.persist.UserDAO;
 
-@WebServlet(name = "userController", urlPatterns = {"/userController"})
+@WebServlet(name = "authenticationController", urlPatterns = {"/authenticationController"})
 public class authenticationController extends HttpServlet {
 
     private UserDAO usersDAO;
@@ -36,34 +36,16 @@ public class authenticationController extends HttpServlet {
      */
     protected void doAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        String action = request.getParameter("actionUser");
+        String action = request.getParameter("action");
         ruta = getServletContext().getRealPath("/WEB-INF/resources");
 
         if (action != null) {
             switch (action) {
-                case "List all Users":
-                    listAll(request, response);
+                case "login":
+                    login(request, response);
                     break;
-                case "New Users":
-                    response.sendRedirect("friend.jsp?showFormAdd=1");
-                    break;
-                case "Add Users":
-                    insertUser(request, response);
-                    break;
-                case "Delete a Users":
-                    response.sendRedirect("friend.jsp?showFormDelete=1");
-                    break;
-                case "deleteUsers":
-                    deleteUser(request, response);
-                    break;
-                case "Modify a Users":
-                    response.sendRedirect("friend.jsp?choseToModify=1");
-                    break;
-                case "modifyUsers":
-                    modifyUsersForm(request, response);
-                    break;
-                case "modify":
-                    modify(request, response);
+                case "logout":
+                    logout(request, response);
                     break;
                 default:
                     response.sendRedirect("index.jsp");
@@ -121,58 +103,24 @@ public class authenticationController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void listAll(HttpServletRequest request, HttpServletResponse response)
+    private void login(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
 
-        usersDAO = new UserDAO(ruta);
-        ArrayList<User> users = usersDAO.findAll();
-        request.setAttribute("users", users);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
-        dispatcher.forward(request, response);
+//        usersDAO = new UserDAO(ruta);
+//        ArrayList<User> users = usersDAO.findAll();
+//        request.setAttribute("users", users);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+//        dispatcher.forward(request, response);
     }
+    
+    private void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException {
 
-    private void insertUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO
-        if (request.getParameter("friendName") != null) {
-//            String friendPhone = request.getParameter("friendPhone");
-//            String friendName = request.getParameter("friendName");
-//            String fAge = request.getParameter("friendAge");
-//            int friendAge = Integer.parseInt(fAge);
-//            String fCatId = request.getParameter("friendCategoryId");
-//            int friendCategoryId = Integer.parseInt(fCatId);
-
-            usersDAO = new UserDAO(ruta);
-//            User newUser = new User(username,friendName,friendAge);
-//
-//            if (usersDAO.insert(newUser) == 1) {
-//                request.setAttribute("success", "User " + newUser + "Successfully inserted :) !");
-//            } else {
-//                request.setAttribute("error", "User not inserted :( !");
-//            }
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("friend.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect("friend.jsp");
-        }
-
+//        usersDAO = new UserDAO(ruta);
+//        ArrayList<User> users = usersDAO.findAll();
+//        request.setAttribute("users", users);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+//        dispatcher.forward(request, response);
     }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO
-    }
-
-    private void modifyUsersForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO
-
-    }
-
-    private void modify(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO
-    }
-
+    
 }

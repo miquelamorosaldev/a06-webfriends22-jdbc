@@ -19,8 +19,8 @@
             <input class="form-control" type="password" name="password" />
         </div>    
         <div class="col-md-6">
-            <button class="buttonSubmit btn btn-primary" 
-                    accesskey="" type="submit" name="action" value="Login">Log In</button>     
+            <button class="buttonSubmit btn btn-secondary" disabled 
+                    accesskey="" type="submit" name="action" value="login">Log In</button>     
         </div>
     </form>
 </div>
