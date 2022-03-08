@@ -106,11 +106,23 @@ public class authenticationController extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
 
-//        usersDAO = new UserDAO(ruta);
-//        ArrayList<User> users = usersDAO.findAll();
-//        request.setAttribute("users", users);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
-//        dispatcher.forward(request, response);
+        //Llegir els camps usuari i password que venen de la vista.
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        //Enviar els camps a un nou mètode del UserDAO que permeti fer login. El password l’enviem desencriptat perquè el mètode SQL ja l’encripta.
+        usersDAO = new UserDAO(ruta);
+        ArrayList<User> users = usersDAO.findAll();
+        
+        //Si el login i el password coincideixen amb el de la base de dades:
+        //Crear una sessió per gestionar l’usuari.
+        
+        //Anem directe a la pantalla de Pacients. 
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
+        dispatcher.forward(request, response);
+        //Si el login o el password no coincideixen amb el de la base de dades (INCORRECTE):
+        //Enviar un missatge d’error a l’usuari: “Usuario o contraseña incorrecta”.
+
     }
     
     private void logout(HttpServletRequest request, HttpServletResponse response)
