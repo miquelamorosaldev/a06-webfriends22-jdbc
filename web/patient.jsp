@@ -6,8 +6,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="html/menu.html"/>
+<jsp:include page="html/menu.jsp"/>
 
+<h2>Patients LIST</h2>
+<p>Select an option from the menu.</p>
 <!-- List All Friends with modify and delete buttons -->
 <c:if test="${patients != null}">
     <form action="patientController" method="POST">

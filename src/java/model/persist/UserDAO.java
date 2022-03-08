@@ -37,11 +37,12 @@ public class UserDAO {
      * a la base de dades.
      * @param username
      * @param password
-     * @return User. Dades de l'usuari.
+     * @return User. Dades de l'usuari. Si no hi ha dades ha fallat el login.
      */
-    public User login(String username, String password) {
+    public User login(String username, String password) throws DBConnectionException {
         User loggedUser = new User();
 
+        // https://www.baeldung.com/sql-injection
         try ( Connection conn = dataSource.getConnection();
               PreparedStatement st = conn.prepareStatement(getQuery("LOGIN")); )
         {
@@ -49,16 +50,37 @@ public class UserDAO {
             st.setString(2, password);
             ResultSet res = st.executeQuery();
             while (res.next()) {
-                // Check the parameters match with friends.jsp form.
                 loggedUser.setUsername(res.getString("username"));
                 loggedUser.setPassword(res.getString("password"));
                 loggedUser.setRole(res.getString("role"));
             }
         } catch (SQLException e) {
-            loggedUser = null;
-        }
-
+            throw new DBConnectionException("Error en la conexión a la base de datos.");
+        } catch (Exception e) {
+            throw new DBConnectionException("Error en el sistema.");
+        } 
         return loggedUser;
+    }
+    
+    /**
+     * Un cop obtingut l'usuari de la base de dades el validem.
+     * @param user
+     * @return boolean. Retorna cert si l'usuari és correcte. 
+     */
+    public boolean validateLoginUser(User user, String username, String password) {
+        boolean loggedUser = false; 
+        return loggedUser;
+    }
+    
+    /**
+     * Un cop obtingut l'usuari de la base de dades el validem.
+     * @param user
+     * @return boolean. Retorna cert si l'usuari és admin. 
+     */
+    public boolean validateAdminUser(User user) {
+        boolean adminUser = false; 
+        
+        return adminUser;
     }
 
     

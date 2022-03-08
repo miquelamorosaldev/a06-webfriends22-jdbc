@@ -6,7 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="html/menu.html"/>
+<jsp:include page="html/menu.jsp"/>
 
 <!-- Find Friends by filters. -->
 <c:if test="${friendfilter != null}" >
