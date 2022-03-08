@@ -31,6 +31,37 @@ public class UserDAO {
         return queries.getProperty(queryName);
     }
 
+    
+    /**
+     * Mètode que usem per a validar si un usuari amb una contrassenya existeix
+     * a la base de dades.
+     * @param username
+     * @param password
+     * @return User. Dades de l'usuari.
+     */
+    public User login(String username, String password) {
+        User loggedUser = new User();
+
+        try ( Connection conn = dataSource.getConnection();
+              PreparedStatement st = conn.prepareStatement(getQuery("LOGIN")); )
+        {
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet res = st.executeQuery();
+            while (res.next()) {
+                // Check the parameters match with friends.jsp form.
+                loggedUser.setUsername(res.getString("username"));
+                loggedUser.setPassword(res.getString("password"));
+                loggedUser.setRole(res.getString("role"));
+            }
+        } catch (SQLException e) {
+            loggedUser = null;
+        }
+
+        return loggedUser;
+    }
+
+    
     public ArrayList<User> findAll() {
         ArrayList<User> list = new ArrayList<>();
         try ( Connection conn = dataSource.getConnection();
